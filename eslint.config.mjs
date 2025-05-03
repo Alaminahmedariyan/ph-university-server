@@ -9,7 +9,7 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs,ts}"], languageOptions: { globals: globals.node } },
   tseslint.configs.recommended,
   {
-    ignores: ["node_modules", "dist", ".node_modules/*"],
+    ignores: ["node_modules", "dist", ".node_modules/*" ],
     rules: {
       "no-unused-vars": "error",
       "no-unused-expressions":"error",
