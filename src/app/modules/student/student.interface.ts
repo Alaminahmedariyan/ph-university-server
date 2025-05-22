@@ -1,39 +1,61 @@
+import { Model, Types } from 'mongoose';
 
-export type Guardian = {
-    fatherName:string;
-    fatherOccupation:string;
-    fatherContactNumber:string;
-    motherName:string;
-    motherOccupation:string;
-    motherContactNumber:string;
+export type TUserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
 };
-export type UserName = {
-    firstName: string;
-    middleName: string; 
-    lastName: string;
+
+export type TGuardian = {
+  fatherName: string;
+  fatherOccupation: string;
+  fatherContactNo: string;
+  motherName: string;
+  motherOccupation: string;
+  motherContactNo: string;
 };
-export type LocalGuardian = {
-    name: string;
-    occupation: string;
-    contactNumber: string;
-    address: string;
-    relationship: string;
-}
+
+export type TLocalGuardian = {
+  name: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+};
 
 export type TStudent = {
-    id:string;
-    name:UserName;
-    email:string;
-    gender:"male" | "female";
-    dateOfBirth: string;
-    contactNumber: string;
-    emergencyContactNumber: string;
-    presentAddress: string;
-    permanentAddress: string;
-    guardian: Guardian;
-    localGuardian: LocalGuardian;
-    bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
-    profileImage?: string;
-    isActive?: "active" | "blocked";
+  id: string;
+  user: Types.ObjectId;
+  password: string;
+  name: TUserName;
+  gender: 'male' | 'female' | 'other';
+  dateOfBirth?: Date;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+  presentAddress: string;
+  permanentAddress: string;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
+  profileImg?: string;
+  admissionSemester: Types.ObjectId;
+  isDeleted: boolean;
+};
 
+//for creating static
+
+export interface StudentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>;
 }
+
+// for creating instance
+
+// export interface StudentMethods {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// }
+
+// export type StudentModel = Model<
+//   TStudent,
+//   Record<string, never>,
+//   StudentMethods
+// >;
